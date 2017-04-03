@@ -1,7 +1,7 @@
 class Alogrithm:
-    def __init__(self):
-        self.players = 0
-        self.step = 0
+    def __init__(self, players, step):
+        self.players = players
+        self.step = step
         self.index = 0
         self.players_list = []
         self.result = []
@@ -26,38 +26,49 @@ class Alogrithm:
                 if self.players_list[i] == player_to_eliminate:
                     del self.players_list[i]
 
-    def enter_parameters(self):
-        while True:
-            try:
-                self.players = int(input("Pleas enter the number of the players: "))
-                if int(self.players) > 1:
-                    break
-                print("Players number must be 2 or greater!")
-            except ValueError:
-                print("Please enter an integer!")
-        while True:
-            try:
-                self.step = int(input("Please enter the rhyme's length:"))
-                if int(self.step) > 0:
-                    break
-                print("The length most be 1 or greater!")
-            except ValueError:
-                print("Please enter an integer!")
-
-    def start(self):
-        self.enter_parameters()
+    def execute(self):
         self.create_list()
         self.index = self.step - 1
         self.eliminate_player()
         for i in range(self.players - 1):
             self.index += self.step
             self.eliminate_player()
-        print(self.result)
+
+
+def get_players_number():
+    while True:
+        try:
+            players = int(input("Pleas enter the number of the players: "))
+            if int(players) > 1:
+                break
+            print("Players number must be 2 or greater!")
+        except ValueError:
+            print("Please enter an integer!")
+    return players
+
+
+def get_step_number():
+    while True:
+        try:
+            step = int(input("Please enter the rhyme's length:"))
+            if int(step) > 0:
+                break
+            print("The length most be 1 or greater!")
+        except ValueError:
+            print("Please enter an integer!")
+    return step
+
+
+def start_algorithm():
+    players = get_players_number()
+    step = get_step_number()
+    algorithm = Alogrithm(players, step)
+    algorithm.execute()
+    print(algorithm.result)
 
 
 def main():
-    algorithm = Alogrithm()
-    algorithm.start()
+    start_algorithm()
 
 
 if __name__ == "__main__":
