@@ -11,7 +11,7 @@ class Alogrithm:
             self.step = self.step % self.players
             if self.step == 0:
                 self.step = 1
-        for i in range(1, self.step * (self.step + 1)):
+        for i in range(1, self.step * self.step +1):
             for j in range(1, self.players + 1):
                 self.players_list.append(j)
 
