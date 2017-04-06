@@ -1,6 +1,3 @@
-import math
-
-
 class OptimizedAlogrithm:
     def __init__(self, players, step):
         self.players = players
