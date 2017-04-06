@@ -1,3 +1,30 @@
+import math
+
+
+class OptimizedAlogrithm:
+    def __init__(self, players, step):
+        self.players = players
+        self.step = step
+        self.index = 0
+        self.players_list = []
+        self.result = []
+
+    def create_list(self):
+        for i in range(1, self.players + 1):
+            self.players_list.append(i)
+
+    def store_player_to_eliminate(self, eliminated_player):
+        self.result.append(eliminated_player)
+
+    def execute(self):
+        self.create_list()
+        while len(self.players_list) > 0:
+            self.index += self.step - 1
+            if self.index >= len(self.players_list):
+                self.index = self.index % len(self.players_list)
+            self.store_player_to_eliminate(self.players_list.pop(self.index))
+
+
 class Alogrithm:
     def __init__(self, players, step):
         self.players = players
@@ -7,11 +34,7 @@ class Alogrithm:
         self.result = []
 
     def create_list(self):
-        if self.step > self.players:
-            self.step = self.step % self.players
-            if self.step == 0:
-                self.step = 1
-        for i in range(1, self.step * (self.step +1)):
+        for i in range(1, self.players * self.step):
             for j in range(1, self.players + 1):
                 self.players_list.append(j)
 
@@ -64,7 +87,10 @@ def start_algorithm():
     step = get_step_number()
     algorithm = Alogrithm(players, step)
     algorithm.execute()
-    print(algorithm.result)
+    print("Slow algorithm result: " + str(algorithm.result))
+    algorithm = OptimizedAlogrithm(players, step)
+    algorithm.execute()
+    print("Optimized algorithm result: " + str(algorithm.result))
 
 
 def main():
